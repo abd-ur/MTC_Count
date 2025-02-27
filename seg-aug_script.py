@@ -5,54 +5,53 @@ from scipy import ndimage as n
 
 path='/content/drive/MyDrive/IMG PreProcessing/dataset'
 data=cv2.imread(f"{path}/12.jpeg", cv2.IMREAD_COLOR)
+print('tissue sample')
 cv2_imshow(data)
 
-#Gaussian filter
-gauss=n.gaussian_filter(data,sigma=3)
-cv2_imshow(gauss)
+# --------------------------------------------------TEST
+# #Gaussian filter
+# gauss=n.gaussian_filter(data,sigma=3)
+# cv2_imshow(gauss)
 
-#median filter
-median=n.median_filter(data,size=3)
-cv2_imshow(median)
+# #median filter
+# median=n.median_filter(data,size=3)
+# cv2_imshow(median)
 
-#Denoised image
-denoised_img=cv2.fastNlMeansDenoising(data,None,h=10,templateWindowSize=7,searchWindowSize=21)
-cv2.imwrite('denoised_image.png',denoised_img)
-cv2_imshow(denoised_img)
+# #Denoised image
+# denoised_img=cv2.fastNlMeansDenoising(data,None,h=10,templateWindowSize=7,searchWindowSize=21)
+# cv2.imwrite('denoised_image.png',denoised_img),
+# cv2_imshow(denoised_img)
+# --------------------------------------------------
 
 gray = cv2.cvtColor(data, cv2.COLOR_BGR2GRAY)
-cv2_imshow(gray)
 
 # Add Gaussian noise to the image
 mean = 0
 stddev =0.8  # Adjust the standard deviation to control the intensity of the noise
 gaussian_noise = np.random.normal(mean, stddev, gray.shape).astype(np.uint8)
 noisy_gray=cv2.add(gray, gaussian_noise)
-cv2_imshow(noisy_gray)
 noise2=np.random.normal(mean, stddev, data.shape).astype(np.uint8)
 noisy_rgb = cv2.add(data, noise2)
+print('upnoised')
 cv2_imshow(noisy_rgb) # Display the noisy image
 
 
 #Applying median filter of up-noised image
 up_median=n.median_filter(noisy_gray,size=4)
-cv2_imshow(up_median)
-cv2_imshow(median)
 kernel = np.ones((5, 5), np.uint8)
 erosion = cv2.erode(data, kernel, iterations=1)
-cv2_imshow(erosion)
 den_img=cv2.fastNlMeansDenoising(erosion,None,h=10,templateWindowSize=7,searchWindowSize=21)
-cv2.imwrite('denoised_image.png',den_img)
+print('eroded_upnoised')
 cv2_imshow(den_img)
 
 #Gray scaling image
-gray = cv2.cvtColor(erosion, cv2.COLOR_BGR2GRAY)
-cv2_imshow(gray)
+gray = cv2.cvtColor(den_img, cv2.COLOR_BGR2GRAY)
 
 #Canny edging
 threshold1 = 190
 threshold2 = 550
 edges = cv2.Canny(gray, threshold1, threshold2)
+print('edges')
 cv2_imshow(edges)
 
 image_blur = cv2.GaussianBlur(edges, (5, 5), 0)

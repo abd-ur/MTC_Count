@@ -9,4 +9,4 @@ __license__ = "MIT"
 
 # Import key functions for easy access
 from .main import count
-from .utils import helper_function
+# from .utils import helper_function

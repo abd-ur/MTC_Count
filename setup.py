@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="MTC_Count",  # Package name
+    name="mtc",  # Package name
     version="0.1.0",  # Initial version
     author="Abdur Rahman Ansari",
     author_email="theabdur10@gmail.com",

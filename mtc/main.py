@@ -81,7 +81,7 @@ def circle(input_image, output_image):
     '''Median filter applied on up-noised image gives smoother and clearer edges of the lesion circles.'''
 
 
-def main():
+def count():
     # Check for faulty command
     if len(sys.argv) < 2:
         print("Usage: python main.py <input_image> <output_image>")
@@ -95,4 +95,4 @@ def main():
     circle(input_image, output_image)
 
 if __name__ == "__main__":
-    main()
+    count()

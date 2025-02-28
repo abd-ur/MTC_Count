@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="mtc",  # Package name
+    name="mcount",  # Package name
     version="0.1.0",  # Initial version
     author="Abdur Rahman Ansari",
     author_email="theabdur10@gmail.com",
@@ -17,7 +17,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "mtc=mtc.main:count",
+            "mcount=mtc.main:count",
         ]
     },
     classifiers=[

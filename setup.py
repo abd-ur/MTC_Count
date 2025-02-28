@@ -17,7 +17,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "mtcrun=mtc.main:main",
+            "mtc=mtc.main:count",
         ]
     },
     classifiers=[

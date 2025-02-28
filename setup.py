@@ -17,7 +17,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "mcount=mtc.main:count",
+            "mcount=mcount.main:count",
         ]
     },
     classifiers=[

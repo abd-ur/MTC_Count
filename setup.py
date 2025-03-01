@@ -17,7 +17,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "mcount=mcount.main:count",
+            "mcount=mcount.main:circle",
         ]
     },
     classifiers=[

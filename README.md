@@ -20,9 +20,15 @@ pip install -r requirements.txt
 
 ##  Usage 
 ```bash
-import mtc
-mtc.
+import mcount
+detected_cells = mcount.circle("input_image","output_image", alpha, beta)
 ```
+## Note
+Output path if not provided, results will be saved at the default path.  
+**Alpha** and **Beta** by default is set to 190 and 550, but can be changed by argument 'alpha' and 'beta' while function call.  
+Gradient intensity below Alpha is ignored as not an edge, higher Alpha removes more weak edges.  
+Gradient intensity above Beta is considered strong edge, lower Beta makes it more sensitive to edges.  
+Function returns coordinates of detected cells along with radius.  
 
 ## Contributing 
 Improvements, bug fixes, and new features are welcomed. Feel free to contribute.

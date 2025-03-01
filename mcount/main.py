@@ -86,6 +86,8 @@ def circle(input_image:str, output_image:str=None, alpha:int=190, beta:int=550):
     cv2.imwrite(output_image,image_blur)
     cv2.imshow('Transormed image',image_blur)  # Display the image with detected circles
     cv2.waitKey(0)
+    cv2.destroyAllWindows() 
+    
     return circles
     
     '''Median filter applied on up-noised image gives smoother and clearer edges of the lesion circles.'''

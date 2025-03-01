@@ -1,19 +1,29 @@
 import cv2
 import numpy as np
 from scipy import ndimage as n
+import os
 import sys
 if "google.colab" in sys.modules:
     from google.colab.patches import cv2_imshow
 
-def circle(input_image, output_image):
-	# Read data
-    data=cv2.imread(input_image, cv2.IMREAD_COLOR)
+def circle(input_image:str, output_image:str=None, alpha:int=190, beta:int=550):
+	
+    if not os.path.exists(input_image):
+        raise FileNotFoundError(f"Error: The file '{input_image}' does not exist.")
     
-    # Data check
+    if not output_image:
+        output_dir = "results"  # Save all images in 'results' folder
+        os.makedirs(output_dir, exist_ok=True)  # Ensure the directory exists
+        output_image = os.path.join(output_dir, "output.jpg")
+        print(f"⚠ No output path provided. Saving to default: {output_image}")
+        
+    # Read the image
+    data = cv2.imread(input_image, cv2.IMREAD_COLOR)
+    
+    # Validate
     if data is None:
-        print(f"Error: Could not load image from '{input_image}'. Please check the file path and format")
-        sys.exit(1) 
-    
+        raise ValueError(f"Error: '{input_image}' is not a valid image file or cannot be opened.")
+        
     #===================================================TEST
     # #Gaussian filter
     # gauss=n.gaussian_filter(data,sigma=3)
@@ -49,8 +59,8 @@ def circle(input_image, output_image):
     gray = cv2.cvtColor(den_img, cv2.COLOR_BGR2GRAY)
     
     #Canny edging
-    threshold1 = 190
-    threshold2 = 550
+    threshold1 = alpha
+    threshold2 = beta
     edges = cv2.Canny(gray, threshold1, threshold2)
     
     image_blur = cv2.GaussianBlur(edges, (5, 5), 0)
@@ -66,33 +76,16 @@ def circle(input_image, output_image):
     
         # Count the number of circles
         num_circles = len(circles)
-        print("Number of circles detected:", num_circles)
+        print("Number of metastatic cells detected:", num_circles)
     else:
         print("No circles detected.")
 
-    print('Cells - xcoor,ycoor,radius')
+    print('Cells - x-coor,y-coor,radius')
     print(circles)
         
     cv2.imwrite(output_image,image_blur)
     cv2.imshow('Transormed image',image_blur)  # Display the image with detected circles
     cv2.waitKey(0)
-
+    return 
     
     '''Median filter applied on up-noised image gives smoother and clearer edges of the lesion circles.'''
-
-
-def count():
-    # Check for faulty command
-    if len(sys.argv) < 2:
-        print("Usage: python main.py <input_image> <output_image>")
-        return
-    
-    # Read command-line arguments
-    input_image = sys.argv[1]  #Input image path
-    output_image = sys.argv[2] if len(sys.argv) > 2 else "output.jpg"  #Output image path
-
-    # Call the function to process the image
-    circle(input_image, output_image)
-
-if __name__ == "__main__":
-    count()

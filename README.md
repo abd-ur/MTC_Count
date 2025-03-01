@@ -11,7 +11,7 @@ pip install .
 ```
 ##  PyPi Module Installation  
 ```bash
-pip install mcount
+pip install mtcount
 ```
 ## Install Dependencies
 ```bash

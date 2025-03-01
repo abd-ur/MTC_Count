@@ -8,5 +8,5 @@ __author__ = "Abdur Rahman Ansari"
 __license__ = "MIT"
 
 # Import key functions for easy access
-from .main import count
+from .main import circle
 # from .utils import helper_function
